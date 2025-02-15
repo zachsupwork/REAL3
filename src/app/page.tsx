@@ -1,7 +1,9 @@
-import Dashboard from "@/components/dashboard";
-import { getCallsData } from "@/lib/get-calls-data";
+import Dashboard from "@components/ui/dashboard";
+import { getCallsData } from "./utils/getCallsData";
+import { revalidatePath } from "next/cache";
 
 export default async function Page() {
-  const stats = await getCallsData();
-  return <Dashboard stats={stats} />;
+    revalidatePath("/");
+    const callsData = await getCallsData();
+    return <Dashboard callsData={callsData} />;
 }
